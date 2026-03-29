@@ -7,7 +7,7 @@
 	import '../app.css';
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
-  import { supabase } from '$lib/supabase';
+  	import { supabase } from '$lib/supabase';
 
 	let { data, children } = $props();
   let session = $derived(data.session);
