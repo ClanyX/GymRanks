@@ -2,7 +2,11 @@
 @plugin 'flowbite/plugin';
 @custom-variant dark (&:where(.dark, .dark *));
 
-/*...*/
+@layer base {
+    html {
+        font-family: 'Roboto', sans-serif;
+    }
+}
 
 @source "../node_modules/flowbite-svelte/dist";
 @source "../node_modules/flowbite-svelte-icons/dist";
