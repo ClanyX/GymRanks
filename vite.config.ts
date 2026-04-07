@@ -11,7 +11,7 @@ export default defineConfig({
 			registerType: 'autoUpdate',
 			manifest: {
 				name: 'Gym Ranking',
-				short_name: 'GymRanking',
+				short_name: 'GymRank',
 				description: 'Webová aplikace pro sledování a porovnávání tvého výkonu v posilovně.',
 				theme_color: '#111827',
 				background_color: "#ffffff",

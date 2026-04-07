@@ -42,19 +42,18 @@
 			</NavBrand>
   			<div class="flex md:order-2 gap-1">
 				<!-- TODO: If signed in show something else this button  -->
-    			<GradientButton href="#" pill shadow color="purpleToBlue" size="sm">SIGN IN</GradientButton >
+    			<GradientButton href="/login" pill shadow color="purpleToBlue" size="sm">PŘIHLÁSIT</GradientButton >
 				<DarkMode />
     			<NavHamburger />
   			</div>
 			<NavUl transition={scale} transitionParams={{ y: 0.6, duration: 300 }} { activeUrl } classes={{ active: activeClass, nonActive: nonActiveClass }}>
-				<NavLi href="/">HOME</NavLi>
-				<NavLi href="/about">ABOUT</NavLi>
-				<NavLi href="/credits">CREDITS</NavLi>
+				<NavLi href="/">DOMŮ</NavLi>
+				<NavLi href="/about">O PROJEKTU</NavLi>
 			</NavUl>
 		</Navbar>
 	</div>
 	<hr />
 	<main>
-		{@render children()}
+	  {@render children()}
 	</main>
 </div>
