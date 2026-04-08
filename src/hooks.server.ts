@@ -73,10 +73,10 @@ const authGuard: Handle = async ({ event, resolve }) => {
   if (!session && event.url.pathname.startsWith('/app')) {
     throw redirect(303, '/login');
   }
-
+  
   // If user IS logged in AND trying to access the login page, redirect to dashboard
-  if (session && event.url.pathname === '/auth/login') {
-    throw redirect(303, '/app/dashboard');
+  if (session && event.url.pathname === '/login') {
+    throw redirect(303, '/app');
   }
 
   return resolve(event);

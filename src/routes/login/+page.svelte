@@ -29,6 +29,8 @@
 				</p>
 			{/if}
 
+			<!-- TODO: implement forgot password and remember me -->
+
 			<GradientButton pill outline color="pinkToOrange" type="submit" class="w-full bg-primary-600 hover:bg-primary-700">Přihlásit se</GradientButton>
 
             <p class="text-sm font-light text-gray-500 dark:text-gray-400">
