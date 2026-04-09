@@ -7,6 +7,9 @@ import { sequence } from '@sveltejs/kit/hooks';
 // Import public environment variables (these are exposed to both server and client)
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY } from '$env/static/public';
 
+//TODO: delete, just for dev
+import { dev } from '$app/environment';
+
 /**
  * SUPABASE MIDDLEWARE HOOK
  * Initializes the Supabase client for each request and sets up session management.
@@ -22,7 +25,8 @@ const supabase: Handle = async ({ event, resolve }) => {
       // Sets cookies in the response (used to maintain auth tokens)
       setAll: (cookiesToSet) => {
         cookiesToSet.forEach(({ name, value, options }) => {
-          event.cookies.set(name, value, { ...options, path: '/' });
+          //TODO: delete -> secure: !dev
+          event.cookies.set(name, value, { ...options, path: '/', secure: !dev });
         });
       },
     },

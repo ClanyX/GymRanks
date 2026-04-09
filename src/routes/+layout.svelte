@@ -36,21 +36,20 @@
 
 <div class="min-h-screen bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-200">
 	<div class="relative">
-		<Navbar class="sticky inset-s-0 top-0 z-20 w-full bg-gray-200 px-2 py-2.5 sm:px-4 dark:bg-gray-800">
+		<Navbar class="fixed inset-x-0 top-0 z-50 w-full border-b border-gray-300 bg-gray-200/95 px-2 py-2.5 backdrop-blur-sm sm:px-4 dark:border-gray-700 dark:bg-gray-800/95">
 			<NavBrand href="/">
 				<img src="/logo.svg" class="me-3 h-9 sm:h-12" alt="gym-logo" />
 				<span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Gym Ranking</span>
 			</NavBrand>
   			<div class="flex md:order-2 gap-1">
-				<!-- TODO: If signed in show something else this button  -->
 				{#if !session}
-    				<GradientButton href="/login" pill shadow color="purpleToBlue" size="sm">PŘIHLÁSIT</GradientButton >
+	    			<GradientButton href="/login" pill shadow color="purpleToBlue" size="sm">PŘIHLÁSIT</GradientButton >
 				{:else}
 					<form method="POST" action="/?/logout" use:enhance>
-    					<GradientButton type="submit" pill shadow color="purpleToBlue" size="sm">
-        					Odhlásit se
-    					</GradientButton>
-					</form>	
+	    				<GradientButton type="submit" pill shadow color="purpleToBlue" size="sm">
+	        				Odhlásit se
+	    				</GradientButton>
+					</form>
 				{/if}
 				<DarkMode />
     			<NavHamburger />
@@ -58,11 +57,13 @@
 			<NavUl transition={scale} transitionParams={{ y: 0.6, duration: 300 }} { activeUrl } classes={{ active: activeClass, nonActive: nonActiveClass }}>
 				<NavLi href="/">DOMŮ</NavLi>
 				<NavLi href="/about">O PROJEKTU</NavLi>
+				<NavLi href="/contact">KONTAKT & PODPORA</NavLi>
+				<NavLi href="/credits">CREDITS</NavLi>
 			</NavUl>
 		</Navbar>
 	</div>
-	<hr />
-	<main>
+	<div class="h-19 sm:h-22"></div>
+	<main class="pt-2">
 	  {@render children()}
 	</main>
 </div>

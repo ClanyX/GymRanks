@@ -1,0 +1,1 @@
+<h1 class="text-2xl font-bold text-center pt-3 leading-tight tracking-tight text-gray-900 md:text-3xl dark:text-white mb-6">COMING SOON</h1>

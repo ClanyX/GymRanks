@@ -30,6 +30,6 @@ export const actions: Actions = {
         }catch(e){
             console.error(e);
         }
-        throw redirect(303, '/');
+        throw redirect(303, '/app');
     }
 };
