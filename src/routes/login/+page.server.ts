@@ -1,5 +1,8 @@
 import type { Actions } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
+import { db } from '$lib/server';
+import { userTable } from '$lib/server/database/schema';
+import { eq } from 'drizzle-orm';
 
 export const actions: Actions = {
     default: async({ request, locals: { supabase } }) => {
@@ -20,6 +23,13 @@ export const actions: Actions = {
         }
 
         //TODO: implement page redirection after successful login
+        try{
+            await db.update(userTable)
+                .set({ lastSignInAt: new Date() })
+                .where(eq(userTable.email, email));
+        }catch(e){
+            console.error(e);
+        }
         throw redirect(303, '/');
     }
 };

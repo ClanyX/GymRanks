@@ -2,10 +2,11 @@
 	import '../app.css';
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import { supabase } from '$lib/supabase';
+	import { supabase } from '$lib/supabase.js';
 	import { DarkMode, Navbar, NavBrand, NavHamburger, NavUl, NavLi, GradientButton } from 'flowbite-svelte';
 	import { page } from '$app/state';
 	import { scale } from 'svelte/transition';
+	import { enhance } from '$app/forms';
 
 	let activeUrl = $derived(page.url.pathname);
 	let activeClass = "font-bold text-gray-700 bg-gray-300 dark:text-white dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-700 md:hover:bg-transparent md:dark:hover:bg-transparent md:text-gray-700 md:dark:text-white ";
@@ -37,12 +38,20 @@
 	<div class="relative">
 		<Navbar class="sticky inset-s-0 top-0 z-20 w-full bg-gray-200 px-2 py-2.5 sm:px-4 dark:bg-gray-800">
 			<NavBrand href="/">
-				<img src="logo.svg" class="me-3 h-9 sm:h-12" alt="gym-logo" />
+				<img src="/logo.svg" class="me-3 h-9 sm:h-12" alt="gym-logo" />
 				<span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Gym Ranking</span>
 			</NavBrand>
   			<div class="flex md:order-2 gap-1">
 				<!-- TODO: If signed in show something else this button  -->
-    			<GradientButton href="/login" pill shadow color="purpleToBlue" size="sm">PŘIHLÁSIT</GradientButton >
+				{#if !session}
+    				<GradientButton href="/login" pill shadow color="purpleToBlue" size="sm">PŘIHLÁSIT</GradientButton >
+				{:else}
+					<form method="POST" action="/?/logout" use:enhance>
+    					<GradientButton type="submit" pill shadow color="purpleToBlue" size="sm">
+        					Odhlásit se
+    					</GradientButton>
+					</form>	
+				{/if}
 				<DarkMode />
     			<NavHamburger />
   			</div>
