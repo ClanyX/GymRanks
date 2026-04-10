@@ -52,7 +52,7 @@
 				</div>
 				<div class="col-span-5">
 					<Label for="gender" class="mb-2">Pohlaví</Label>
-					<Select items={genders} name="gender" id="gender" required />
+					<Select items={genders} name="gender" id="gender" placeholder="Vyber pohlaví..." required />
 				</div>
                 <div class="col-span-4">
                     <Label for="dateOfBirth" class="mb-2">Datum narození</Label>
