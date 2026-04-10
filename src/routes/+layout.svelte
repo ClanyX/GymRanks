@@ -7,6 +7,8 @@
 	import { page } from '$app/state';
 	import { scale } from 'svelte/transition';
 	import { enhance } from '$app/forms';
+	import { Footer, FooterCopyright, FooterLinkGroup, FooterLink, FooterIcon } from 'flowbite-svelte';
+  	import { GithubSolid, EnvelopeSolid } from 'flowbite-svelte-icons';
 
 	let activeUrl = $derived(page.url.pathname);
 	let activeClass = "font-bold text-gray-700 bg-gray-300 dark:text-white dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-700 md:hover:bg-transparent md:dark:hover:bg-transparent md:text-gray-700 md:dark:text-white ";
@@ -42,6 +44,7 @@
 				<span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Gym Ranking</span>
 			</NavBrand>
   			<div class="flex md:order-2 gap-1">
+				<!-- TODO: after user login show account image, no logout button -->
 				{#if !session}
 	    			<GradientButton href="/login" pill shadow color="purpleToBlue" size="sm">PŘIHLÁSIT</GradientButton >
 				{:else}
@@ -66,4 +69,42 @@
 	<main class="pt-2">
 	  {@render children()}
 	</main>
+
+	<Footer footerType="logo" class="bg-gray-100 dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 p-8">
+  		<div class="max-w-7xl mx-auto flex flex-col md:flex-row md:justify-between items-center gap-6">
+    		<div class="flex flex-col items-center md:items-start">
+    		  <div class="flex items-center gap-2 mb-2">
+    		    <span class="text-2xl font-black italic tracking-tighter text-primary-600">GYMRANK</span>
+    		  </div>
+    		  <p class="text-sm text-gray-500 dark:text-gray-400 font-light italic">
+    		    Posouvej své hranice, každé kilo se počítá.
+    		  </p>
+    		</div>
+
+    		<FooterLinkGroup class="flex flex-wrap justify-center gap-6 uppercase font-bold text-xs tracking-widest text-gray-600 dark:text-gray-400">
+    		  <FooterLink href="/">Domů</FooterLink>
+    		  <FooterLink href="/about">O projektu</FooterLink>
+    		  <FooterLink href="/contact">Kontakt & Podpora</FooterLink>
+    		  <FooterLink href="/credits">Credits</FooterLink>
+    		</FooterLinkGroup>
+
+    		<div class="flex space-x-6">
+    		  <FooterIcon href="https://github.com/ClanyX/Gym_Ranking.git" target="_blank" class="text-gray-500 hover:text-primary-600">
+    		    <GithubSolid class="w-5 h-5" />
+    		  </FooterIcon>
+    		  <FooterIcon href="mailto:sandera.filip6@gmail.com" class="text-gray-500 hover:text-primary-600">
+    		    <EnvelopeSolid class="w-5 h-5" />
+    		  </FooterIcon>
+    		</div>
+  		</div>
+
+  		<hr class="my-6 border-gray-200 dark:border-gray-800 sm:mx-auto" />
+
+  		<div class="text-center">
+  		  <FooterCopyright href="/" by="Filip Šandera" year={2026} class="font-serif italic text-sm" />
+  		  <p class="text-[10px] text-gray-400 uppercase tracking-widest mt-2">
+  		    Built with SvelteKit & Supabase
+  		  </p>
+  		</div>
+	</Footer>
 </div>

@@ -3,7 +3,7 @@
 	import { fade } from 'svelte/transition';
     import { Button } from 'flowbite-svelte';
 
-	let words = $state(['REKORDY', 'LIMITY', 'HRANICE', 'MOŽNOSTI', 'STRACHY', 'MAXIMÁLKY', 'CÍLE', 'VÝKONY', 'PŘEKÁŽKY']);
+	let words = $state(['GYMRANKS', 'REKORDY', 'LIMITY', 'HRANICE', 'MOŽNOSTI', 'STRACHY', 'MAXIMÁLKY', 'CÍLE', 'VÝKONY', 'PŘEKÁŽKY']);
 	let currentWordIndex = $state(0);
 	let currentWord = $derived(words[currentWordIndex]);
 	let isVisible = $state(true);
@@ -58,35 +58,51 @@
         <div class="group relative bg-gray-100 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-3xl p-8 md:p-12 shadow-2xl transition-all duration-500 hover:shadow-primary-500/10 hover:border-primary-500/50">
             <div class="flex flex-col md:flex-row gap-10 items-center">
                 <div class="shrink-0 w-20 h-20 dark:bg-gray-700 bg-gray-300 rounded-2xl flex items-center justify-center rotate-3 group-hover:rotate-12 transition-transform duration-300 shadow-lg shadow-primary-600/20">
-                    <svg class="w-10 h-10 dark:text-white text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-12 h-12 dark:text-white text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                     </svg>
                 </div>
                 <!-- TODO: edit text -->
                 <div>
                     <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4 font-sans italic uppercase tracking-tight">
-                        Víc než jen tréninkový deník
+                        VAŠE DATA, VAŠE VÝSLEDKY
                     </h2>
                     <p class="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-6 font-light">
-                        GymRank vznikl z potřeby mít absolutní přehled o svém progresu bez zbytečného klikání. Sledujeme tvoje <span class="text-primary-600 dark:text-primary-500 font-bold italic">maximálky</span>, analyzujeme objem práce a motivujeme tě k dalšímu opakování. Žádné reklamy, žádný balast. Jen ty a tvoje cesta za silou.
+                        GymRank propojuje moderní technologie s klasickým tréninkem. Díky synchronizaci v cloudu máš svá data dostupná odkudkoliv – v mobilu v gymu i doma na PC. Sledujeme tvoje <span class="text-primary-600 dark:text-primary-500 font-bold italic">maximálky</span>, analyzujeme objem práce a motivujeme tě k dalšímu opakování. Každý záznam o tvém dřepu nebo mrtvém tahu tvoří mozaiku tvé dlouhodobé síly. Žádné reklamy, žádný balast. Jen ty a tvoje cesta za silou. Sleduj své rekordy, <span class="text-primary-600 dark:text-primary-500 font-bold italic">překonávej limity</span> a buduj disciplínu, která se počítá na kila.
                     </p>
                     
                     <div class="grid grid-cols-2 gap-4 border-t border-gray-200 dark:border-gray-800 pt-6">
                         <div class="flex items-center gap-2">
                             <div class="w-2 h-2 rounded-full bg-primary-500"></div>
-                            <span class="text-sm font-bold dark:text-gray-300 uppercase tracking-widest">100% Soukromí</span>
+                            <span class="text-sm font-bold dark:text-gray-300 uppercase tracking-widest">100% SOUKROMÍ</span>
                         </div>
                         <div class="flex items-center gap-2">
                             <div class="w-2 h-2 rounded-full bg-primary-500"></div>
-                            <span class="text-sm font-bold dark:text-gray-300 uppercase tracking-widest">Cloud Sync</span>
+                            <span class="text-sm font-bold dark:text-gray-300 uppercase tracking-widest">REKORDY POD KONTROLOU</span>
                         </div>
                         <div class="flex items-center gap-2">
                             <div class="w-2 h-2 rounded-full bg-primary-500"></div>
-                            <span class="text-sm font-bold dark:text-gray-300 uppercase tracking-widest">Statistiky</span>
+                            <span class="text-sm font-bold dark:text-gray-300 uppercase tracking-widest">SÍŇ SLÁVY</span>
                         </div>
                         <div class="flex items-center gap-2">
                             <div class="w-2 h-2 rounded-full bg-primary-500"></div>
-                            <span class="text-sm font-bold dark:text-gray-300 uppercase tracking-widest">Komunita</span>
+                            <span class="text-sm font-bold dark:text-gray-300 uppercase tracking-widest">HISTORIE PR</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-primary-500"></div>
+                            <span class="text-sm font-bold dark:text-gray-300 uppercase tracking-widest">DŮKAZ PROGRESU</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-primary-500"></div>
+                            <span class="text-sm font-bold dark:text-gray-300 uppercase tracking-widest">CLOUD SYNC</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-primary-500"></div>
+                            <span class="text-sm font-bold dark:text-gray-300 uppercase tracking-widest">MAXIMÁLNÍ PŘEHLED</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-primary-500"></div>
+                            <span class="text-sm font-bold dark:text-gray-300 uppercase tracking-widest">KOMUNITNÍ ŽEBŘÍČEK</span>
                         </div>
                     </div>
                 </div>
@@ -94,3 +110,10 @@
         </div>
     </div>
 </section>
+
+<hr class="border-gray-200 dark:border-gray-800" />
+
+<!-- TODO: add 2 tables with record(secret only name and kg) -->
+<div>
+    <h1 class="text-2xl font-bold text-center pt-6 leading-tight tracking-tight text-gray-900 md:text-3xl dark:text-white pb-6">COMING SOON</h1>
+</div>
