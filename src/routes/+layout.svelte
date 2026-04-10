@@ -3,7 +3,7 @@
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { supabase } from '$lib/supabase.js';
-	import { DarkMode, Navbar, NavBrand, NavHamburger, NavUl, NavLi, GradientButton } from 'flowbite-svelte';
+	import { DarkMode, Navbar, NavBrand, NavHamburger, NavUl, NavLi, GradientButton, Dropdown, DropdownHeader, Avatar, DropdownGroup, DropdownItem } from 'flowbite-svelte';
 	import { page } from '$app/state';
 	import { scale } from 'svelte/transition';
 	import { enhance } from '$app/forms';
@@ -36,7 +36,7 @@
 	<!-- TODO: Add favicon -->
 </svelte:head>
 
-<div class="min-h-screen bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-200">
+<div class="flex flex-col min-h-screen bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-200">
 	<div class="relative">
 		<Navbar class="fixed inset-x-0 top-0 z-50 w-full border-b border-gray-300 bg-gray-200/95 px-2 py-2.5 backdrop-blur-sm sm:px-4 dark:border-gray-700 dark:bg-gray-800/95">
 			<NavBrand href="/">
@@ -48,25 +48,48 @@
 				{#if !session}
 	    			<GradientButton href="/login" pill shadow color="purpleToBlue" size="sm">PŘIHLÁSIT</GradientButton >
 				{:else}
-					<form method="POST" action="/?/logout" use:enhance>
-	    				<GradientButton type="submit" pill shadow color="purpleToBlue" size="sm">
-	        				Odhlásit se
-	    				</GradientButton>
-					</form>
+					<div class="flex items-center md:order-2">
+    					<Avatar class="cursor-pointer h-9 w-9 md:h-12 md:w-12" id="avatar-menu" src="/profil-img.png" />
+  					</div>
+					<Dropdown placement="bottom" triggeredBy="#avatar-menu">
+						<DropdownHeader>
+	  						<!-- TODO: add user name and email -->
+      						<span class="block text-sm">{data.userData?.firstName} {data.userData?.lastName}</span>
+      						<span class="block truncate text-sm font-medium">{data.userData?.email}</span>
+						</DropdownHeader>
+						<DropdownGroup>
+							<DropdownItem>Profil</DropdownItem>
+      						<DropdownItem href="/app/dashboard">Dashboard</DropdownItem>
+    					</DropdownGroup>
+						<DropdownGroup>
+							<form method="POST" action="/?/logout" use:enhance>
+	    						<button class="w-full" type="submit">
+	        						<DropdownItem>Odhlásit se</DropdownItem>
+								</button>
+							</form>
+						</DropdownGroup>
+					</Dropdown>
 				{/if}
 				<DarkMode />
     			<NavHamburger />
   			</div>
-			<NavUl transition={scale} transitionParams={{ y: 0.6, duration: 300 }} { activeUrl } classes={{ active: activeClass, nonActive: nonActiveClass }}>
-				<NavLi href="/">DOMŮ</NavLi>
-				<NavLi href="/about">O PROJEKTU</NavLi>
-				<NavLi href="/contact">KONTAKT & PODPORA</NavLi>
-				<NavLi href="/credits">CREDITS</NavLi>
-			</NavUl>
+			
+				<NavUl transition={scale} transitionParams={{ y: 0.6, duration: 300 }} { activeUrl } classes={{ active: activeClass, nonActive: nonActiveClass }}>
+					<NavLi href="/">DOMŮ</NavLi>
+					{#if !session}
+						<NavLi href="/about">O PROJEKTU</NavLi>
+						<NavLi href="/contact">KONTAKT & PODPORA</NavLi>
+						<NavLi href="/credits">CREDITS</NavLi>
+					{:else}
+						<NavLi href="/app/dashboard">DASHBOARD</NavLi>
+						<NavLi>PROFIL</NavLi>
+						<NavLi href="/app/exercises">EXERCISES</NavLi>
+					 {/if}
+				</NavUl>
 		</Navbar>
 	</div>
 	<div class="h-19 sm:h-22"></div>
-	<main class="pt-2">
+	<main class="pt-2 grow">
 	  {@render children()}
 	</main>
 

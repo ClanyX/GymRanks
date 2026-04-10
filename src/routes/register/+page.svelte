@@ -12,7 +12,7 @@
 	];
 </script>
 
-<div class="flex flex-col items-center justify-center px-6 py-8 mx-auto mt-16 lg:py-0">
+<div class="flex flex-col items-center justify-center px-6 py-8 mx-auto mt-16 mb-16 lg:py-0">
 	<Card class="w-full sm:max-w-md">
 		<h1 class="text-2xl font-bold text-center pt-3 leading-tight tracking-tight text-gray-900 md:text-3xl dark:text-white mb-6">
 			Vytvořit účet

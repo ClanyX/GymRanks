@@ -13,7 +13,7 @@ export const userTable = pgTable("users", {
     weight: integer("weight").notNull(),
     role: roleEnum("role").default("user").notNull(),
     isTrusted: boolean("is_trusted").default(false).notNull(),
-    //TODO: add tags (enum of strings)
+    //TODO: add tags (enum of strings) / ranks (enum of strings)
     createdAt: timestamp("created_at",{
         withTimezone: true,
         mode: "date",
@@ -28,6 +28,7 @@ export const exerciseTable = pgTable("exercises", {
     id: uuid("id").primaryKey().defaultRandom(),
     name: text("name").notNull().unique(),
     description: text("description").notNull(),
+    category: text("category").notNull(),
 });
 
 export const recordTable = pgTable("records", {

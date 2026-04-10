@@ -10,6 +10,11 @@ import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY } from '$e
 //TODO: delete, just for dev
 import { dev } from '$app/environment';
 
+// Import database client and schema for user data retrieval
+import { db } from '$lib/server/';
+import { userTable } from '$lib/server/database/schema';
+import { eq } from 'drizzle-orm';
+
 /**
  * SUPABASE MIDDLEWARE HOOK
  * Initializes the Supabase client for each request and sets up session management.
@@ -37,19 +42,23 @@ const supabase: Handle = async ({ event, resolve }) => {
    * Returns both session and user, or null values if not authenticated or error occurs.
    */
   event.locals.safeGetSession = async () => {
-    // First, fetch the active session from Supabase
-    const { data: { session } } = await event.locals.supabase.auth.getSession();
-    if (!session) return { session: null, user: null };
-
     // Then, fetch the authenticated user details
-    const { data: { user }, error } = await event.locals.supabase.auth.getUser();
-    if (error) {
-      // If there's an error fetching user (e.g., token expired), return null values
-      return { session: null, user: null };
+    const { data: { user }, error: errorUser } = await event.locals.supabase.auth.getUser();
+    
+    // First, fetch the active session from Supabase
+    const { data: { session }, error: errorSession } = await event.locals.supabase.auth.getSession();
+    if (errorUser || errorSession || !session || !user) {
+      return { session: null, user: null, userData: null };
     }
 
+    const userDB = await db
+      .select()
+      .from(userTable)
+      .where(eq(userTable.id, session.user.id))
+      .then(res => res[0] ?? null);
+
     // Return both session and user data if everything is valid
-    return { session, user };
+    return { session, user, userData: userDB };
   };
 
   return resolve(event, {
@@ -80,7 +89,7 @@ const authGuard: Handle = async ({ event, resolve }) => {
   
   // If user IS logged in AND trying to access the login page, redirect to dashboard
   if (session && event.url.pathname === '/login') {
-    throw redirect(303, '/app');
+    throw redirect(303, '/app/dashboard');
   }
 
   return resolve(event);
