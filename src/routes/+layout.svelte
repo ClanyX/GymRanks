@@ -32,7 +32,7 @@
 </script>
 
 <svelte:head>
-	<link rel="apple-touch-icon" sizes="192x192" href="favicon.ico" />
+	<link rel="apple-touch-icon" sizes="192x192" href="/favicon-192x192.png" />
 	<!-- TODO: Add favicon -->
 </svelte:head>
 
@@ -82,8 +82,8 @@
 						<NavLi href="/credits">CREDITS</NavLi>
 					{:else}
 						<NavLi href="/app/dashboard">DASHBOARD</NavLi>
-						<NavLi>PROFIL</NavLi>
-						<NavLi href="/app/exercises">EXERCISES</NavLi>
+						<NavLi href="/app/profile">PROFIL</NavLi>
+						<NavLi href="/app/exercises/hall-of-fame">EXERCISES</NavLi>
 					 {/if}
 				</NavUl>
 		</Navbar>

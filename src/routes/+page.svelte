@@ -1,7 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
-    import { Button } from 'flowbite-svelte';
+    import { Button, Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from 'flowbite-svelte';
+    import { AwardSolid, ChampagneGlassesSolid, FireOutline, LabelSolid } from 'flowbite-svelte-icons';
+
+    let { data } = $props();
 
 	let words = $state(['GYMRANKS', 'REKORDY', 'LIMITY', 'HRANICE', 'MOŽNOSTI', 'STRACHY', 'MAXIMÁLKY', 'CÍLE', 'VÝKONY', 'PŘEKÁŽKY']);
 	let currentWordIndex = $state(0);
@@ -20,6 +23,29 @@
 		}, 2500);
 		return () => clearInterval(interval);
 	});
+
+    const groupedRecords = $derived(
+        data.top3records.reduce((acc, record) => {
+            if(!acc[record.exercisename]) {
+                acc[record.exercisename] = [];
+            }
+            acc[record.exercisename].push(record);
+            return acc;
+        }, {} as Record<string, typeof data.top3records>)
+    );
+
+	const getRankClasses = (index: number) => {
+		switch (index) {
+			case 0:
+				return 'bg-yellow-500/10 dark:bg-yellow-500/5 border-l-4 border-l-yellow-400';
+			case 1:
+				return 'bg-gray-400/10 dark:bg-gray-400/5 border-l-4 border-l-gray-300';
+			case 2:
+				return 'bg-orange-600/10 dark:bg-orange-600/5 border-l-4 border-l-orange-500';
+			default:
+				return 'border-l-4 border-l-transparent';
+		}
+	};
 </script>
 
 <div class="h-[calc(100vh-4rem)] w-full flex flex-col items-center justify-center px-4 text-center selection:bg-primary-500/20">
@@ -113,7 +139,64 @@
 
 <hr class="border-gray-200 dark:border-gray-800" />
 
-<!-- TODO: add 2 tables with record(secret only name and kg) -->
-<div>
-    <h1 class="text-2xl font-bold text-center pt-6 leading-tight tracking-tight text-gray-900 md:text-3xl dark:text-white pb-6">COMING SOON</h1>
+<div class="p-4 md:p-8 space-y-16 mb-10">
+    <div class="border-b-4 border-primary-600 pb-4">
+        <h1 class="text-5xl font-black uppercase dark:text-white">
+            Ty nejlepší <span class="underline italic">výkony</span>
+        </h1>
+        <p class="text-gray-500 font-bold uppercase text-xs mt-2 tracking-widest">
+            Top 3 výkony v každé disciplíně
+        </p>
+    </div>
+
+    {#each Object.entries(groupedRecords) as [exerciseName, records] (exerciseName)}
+        <section class="space-y-4">
+            <h2 class="text-2xl font-black italic uppercase dark:text-white flex items-center gap-3">
+                <span class="text-primary-600 font-black"><LabelSolid class="w-6 h-6" /></span> {exerciseName}
+            </h2>
+
+            <div class="rounded-2xl overflow-hidden border border-gray-500 dark:bg-gray-800 bg-gray-200 shadow-2xl">
+                <Table>
+                    <TableHead class="dark:bg-gray-700 bg-gray-200 text-gray-400 uppercase text-[10px] tracking-widest">
+                        <TableHeadCell class="w-20 text-center">Rank</TableHeadCell>
+                        <TableHeadCell>Zvedač</TableHeadCell>
+                        <TableHeadCell class="text-right">Maximálka</TableHeadCell>
+                    </TableHead>
+                    <TableBody>
+                        {#each records as record (record)}
+                            <TableBodyRow class={getRankClasses(record.rank)}>
+                                <TableBodyCell class="text-center font-black">
+                                    <div class="flex justify-center gap-2">
+                                        {#if record.rank == 1}
+                                            #1 <AwardSolid class="w-6 h-6 text-yellow-400" />
+                                        {:else if record.rank == 2}
+                                            #2 <ChampagneGlassesSolid class="w-6 h-6 text-gray-300" />
+                                        {:else if record.rank == 3}
+                                            #3 <FireOutline class="w-6 h-6 text-orange-500" />
+                                        {:else}
+                                            <span class="text-gray-500 text-sm">#{record.rank}</span>
+                                        {/if}
+                                    </div>
+                                </TableBodyCell>
+
+                                <TableBodyCell class="font-bold dark:text-gray-200 text-gray-800 italic">
+                                    {record.username}
+                                </TableBodyCell>
+
+                                <TableBodyCell class="text-right font-black text-2xl tracking-tighter">
+                                    <span class={record.rank == 1 ? "text-yellow-400" : "dark:text-gray-300 text-gray-500"}>
+                                        {record.weight / 1000} <span class="text-[10px] uppercase ml-0.5">kg</span>
+                                    </span>
+                                </TableBodyCell>
+                            </TableBodyRow>
+                        {/each}
+                    </TableBody>
+                </Table>
+            </div>
+        </section>
+    {:else}
+        <div class="text-center py-20 border-2 border-dashed border-gray-800 rounded-3xl">
+            <p class="text-gray-600 italic">Zatím nebyly zapsány žádné výkony.</p>
+        </div>
+    {/each}
 </div>

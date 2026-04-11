@@ -29,7 +29,7 @@
     <Card class="bg-linear-to-br dark:from-gray-950 dark:to-gray-800 from-gray-100 to-gray-200 border-gray-200 shadow-xl relative overflow-hidden p-2">
       <div class="relative z-10">
         <h3 class="text-gray-500 dark:text-gray-400 text-xs font-bold uppercase tracking-widest mb-2">Tvůj Rank</h3>
-        <p class="text-3xl font-black dark:text-white text-black italic uppercase">Silver II</p>
+        <p class="text-3xl font-black dark:text-white text-black italic uppercase">Cooming soon</p>
       </div>
       <AwardOutline class="absolute -right-4 -bottom-4 w-24 h-24 dark:text-white/10 text-black/10 rotate-12" />
     </Card>
