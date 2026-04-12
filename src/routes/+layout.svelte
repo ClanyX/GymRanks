@@ -53,13 +53,13 @@
   					</div>
 					<Dropdown placement="bottom" triggeredBy="#avatar-menu">
 						<DropdownHeader>
-	  						<!-- TODO: add user name and email -->
       						<span class="block text-sm">{data.userData?.firstName} {data.userData?.lastName}</span>
       						<span class="block truncate text-sm font-medium">{data.userData?.email}</span>
 						</DropdownHeader>
 						<DropdownGroup>
-							<DropdownItem>Profil</DropdownItem>
+							<DropdownItem href="/app/profile">Profil</DropdownItem>
       						<DropdownItem href="/app/dashboard">Dashboard</DropdownItem>
+      						<DropdownItem href="/app/exercises/allexercises">Žebříček</DropdownItem>
     					</DropdownGroup>
 						<DropdownGroup>
 							<form method="POST" action="/?/logout" use:enhance>
@@ -83,7 +83,8 @@
 					{:else}
 						<NavLi href="/app/dashboard">DASHBOARD</NavLi>
 						<NavLi href="/app/profile">PROFIL</NavLi>
-						<NavLi href="/app/exercises/hall-of-fame">EXERCISES</NavLi>
+						<NavLi href="/app/exercises/hall-of-fame">SÍŇ SLÁVY</NavLi>
+						<NavLi href="/app/exercises/allexercises">ŽEBŘÍČEK</NavLi>
 					 {/if}
 				</NavUl>
 		</Navbar>
