@@ -1,28 +1,33 @@
 import { db } from '$lib/server/';
 import { recordTable, userTable, exerciseTable } from '$lib/server/database/schema';
-import { eq, desc, max } from 'drizzle-orm';
+import { eq, sql } from 'drizzle-orm';
+import type { PageServerLoad } from './$types';
 
-export const load = async () => {
-    // 1. Načteme všechny cviky, abychom mohli tvořit sekce
-    const allExercises = await db.select().from(exerciseTable);
+export const load: PageServerLoad = async ({ locals }) => {
+    const { session } = await locals.safeGetSession();
+    const currentUserId = session?.user?.id;
 
-    // 2. Načteme nejlepší výkony všech uživatelů u všech cviků
     const allRecords = await db
         .select({
             userId: userTable.id,
-            username: userTable.firstName && " " && userTable.lastName,
-            exerciseId: exerciseTable.id,
+            userName: userTable.firstName,
+            userLastName: userTable.lastName,
+            userGender: userTable.gender,
+            userAge: userTable.dateOfBirth,
+            userWeight: userTable.weight,
             exerciseName: exerciseTable.name,
-            weight: max(recordTable.liftedWeight),
+            weight: recordTable.liftedWeight,
+            rank: sql<number>`row_number() over (
+                partition by ${recordTable.exerciseId} 
+                order by ${recordTable.liftedWeight} desc
+            )`.as('rank')
         })
         .from(recordTable)
-        .innerJoin(userTable, eq(recordTable.userId, userTable.id))
-        .innerJoin(exerciseTable, eq(recordTable.exerciseId, exerciseTable.id))
-        .groupBy(userTable.id, userTable.lastName, userTable.firstName, exerciseTable.id, exerciseTable.name)
-        .orderBy(desc(max(recordTable.liftedWeight)));
+        .leftJoin(userTable, eq(recordTable.userId, userTable.id))
+        .leftJoin(exerciseTable, eq(recordTable.exerciseId, exerciseTable.id));
 
     return {
-        allExercises,
-        allRecords
+        allRecords,
+        currentUserId,
     };
-};
+}

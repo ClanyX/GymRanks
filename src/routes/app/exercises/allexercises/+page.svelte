@@ -123,6 +123,7 @@
                 <TableHeadCell class="text-right px-8">Datum</TableHeadCell>
             </TableHead>
             <TableBody>
+            <!-- TODO: remove duplication -->
                 {#each filteredRecords as item (item)}
                     <TableBodyRow class="border-b border-gray-800 dark:hover:bg-gray-500/30 hover:bg-gray-300/30 transition-colors">
                         <TableBodyCell>

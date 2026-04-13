@@ -59,6 +59,7 @@
 						<DropdownGroup>
 							<DropdownItem href="/app/profile">Profil</DropdownItem>
       						<DropdownItem href="/app/dashboard">Dashboard</DropdownItem>
+      						<DropdownItem href="/app/exercises/hall-of-fame">Síň slávy</DropdownItem>
       						<DropdownItem href="/app/exercises/allexercises">Žebříček</DropdownItem>
     					</DropdownGroup>
 						<DropdownGroup>
