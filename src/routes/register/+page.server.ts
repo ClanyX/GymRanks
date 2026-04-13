@@ -14,13 +14,15 @@ export const actions: Actions = {
 		const firstName = (formData.get('firstName') as string).trim();
 		const lastName = (formData.get('lastName') as string).trim();
         const dateOfBirth = formData.get('dateOfBirth') as string;
-		const weight = Number(formData.get('weight'));
+		const weight = parseFloat(formData.get('weight') as string);
 		const gender = formData.get('gender') as 'male' | 'female' | 'other';
 
 		const cleanFirstName = firstName.charAt(0).toUpperCase() + firstName.slice(1).toLowerCase();
 		const cleanLastName = lastName.charAt(0).toUpperCase() + lastName.slice(1).toLowerCase();
 
-		if (!email || !password || !cleanFirstName || !cleanLastName || !dateOfBirth || !weight || !gender || !confirmPassword) {
+		const correctWeight = Math.round(weight * 1000);
+
+		if (!email || !password || !cleanFirstName || !cleanLastName || !dateOfBirth || !correctWeight || !gender || !confirmPassword) {
 			return fail(400, { message: 'Všechna pole jsou povinná.' });
 		}
 
@@ -72,7 +74,7 @@ export const actions: Actions = {
 				email,
 				dateOfBirth: new Date(dateOfBirth),
 				gender,
-				weight: weight * 1000,
+				weight: correctWeight,
                 role: 'user',
                 isTrusted: false,
                 createdAt: new Date(),

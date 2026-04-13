@@ -37,7 +37,7 @@
                         <TableHeadCell class="text-right">Váha</TableHeadCell>
                     </TableHead>
                     <TableBody>
-                    <!-- TODO: remove duplication -->
+                    <!-- TODO: remove duplication and set max limit of records -->
                         {#each records as record (record)}
                             {@const isMe = record.userId === data.currentUserId}
                             
@@ -60,7 +60,7 @@
 
                                 <TableBodyCell class="font-bold {isMe ? 'dark:text-white' : 'text-gray-400'}">
                                     <div class="flex items-center gap-2">
-                                        {record.userName}
+                                        {record.userLastName}
                                         {#if isMe}
                                             <UserCircleOutline class="w-4 h-4 text-primary-500" />
                                         {/if}
@@ -69,7 +69,7 @@
 
                                 <TableBodyCell>
                                     <div class="text-sm text-gray-500">
-                                        {record.userLastName} | {(record.userGender?.at(0)?.toUpperCase())}{record.userGender?.slice(1)} <span class="invisible md:visible">|</span> <br class="md:hidden" /> {record.userAge ? Math.floor((Date.now() - new Date(record.userAge).getTime()) / (365.25 * 24 * 60 * 60 * 1000)) : 'N/A'} let | {record.userWeight ? record.userWeight / 1000 : 'N/A'} kg
+                                        {record.userName} | {(record.userGender?.at(0)?.toUpperCase())}{record.userGender?.slice(1)} <span class="invisible md:visible">|</span> <br class="md:hidden" /> {record.userAge ? Math.floor((Date.now() - new Date(record.userAge).getTime()) / (365.25 * 24 * 60 * 60 * 1000)) : 'N/A'} let | {record.userWeight ? record.userWeight / 1000 : 'N/A'} kg
                                     </div>
                                 </TableBodyCell>
 

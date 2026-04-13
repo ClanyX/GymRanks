@@ -48,7 +48,7 @@
 			<div class="grid grid-cols-12 gap-2">
 				<div class="col-span-3">
 					<Label for="weight" class="mb-2 truncate">Váha (kg)</Label>
-					<Input type="number" name="weight" id="weight" placeholder="80" required />
+					<Input type="number" min="0" step="0.1" name="weight" id="weight" placeholder="80" required />
 				</div>
 				<div class="col-span-5">
 					<Label for="gender" class="mb-2">Pohlaví</Label>
