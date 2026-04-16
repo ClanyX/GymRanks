@@ -7,8 +7,8 @@ import { sequence } from '@sveltejs/kit/hooks';
 // Import public environment variables (these are exposed to both server and client)
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY } from '$env/static/public';
 
-//TODO: delete, just for dev
-import { dev } from '$app/environment';
+// just for testing purposes, to check if the server hooks are working correctly
+// import { dev } from '$app/environment';
 
 // Import database client and schema for user data retrieval
 import { db } from '$lib/server/';
@@ -30,8 +30,7 @@ const supabase: Handle = async ({ event, resolve }) => {
       // Sets cookies in the response (used to maintain auth tokens)
       setAll: (cookiesToSet) => {
         cookiesToSet.forEach(({ name, value, options }) => {
-          //TODO: delete -> secure: !dev
-          event.cookies.set(name, value, { ...options, path: '/', secure: !dev });
+          event.cookies.set(name, value, { ...options, path: '/'/* , secure: !dev */ });
         });
       },
     },
@@ -80,7 +79,6 @@ const authGuard: Handle = async ({ event, resolve }) => {
   const { session } = await event.locals.safeGetSession();
 
   //TODO: implement role-based access control (e.g., only allow admins to access certain routes)
-  //TODO: implement secure pages
   
   // If user is NOT logged in AND trying to access /app routes, redirect to login
   if (!session && event.url.pathname.startsWith('/app')) {
