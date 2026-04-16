@@ -1,11 +1,21 @@
 import { db } from '$lib/server/';
 import { recordTable, userTable, exerciseTable } from '$lib/server/database/schema';
-import { eq, sql } from 'drizzle-orm';
+import { eq, sql, desc } from 'drizzle-orm';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals }) => {
     const { session } = await locals.safeGetSession();
     const currentUserId = session?.user?.id;
+
+    const bestPerUser = db
+        .select({
+            userId: recordTable.userId,
+            exerciseId: recordTable.exerciseId,
+            maxWeight: sql<number>`MAX(${recordTable.liftedWeight})`.as('max_weight'),
+        })
+        .from(recordTable)
+        .groupBy(recordTable.userId, recordTable.exerciseId)
+        .as('best_per_user');
 
     const allRecords = await db
         .select({
@@ -16,15 +26,17 @@ export const load: PageServerLoad = async ({ locals }) => {
             userAge: userTable.dateOfBirth,
             userWeight: userTable.weight,
             exerciseName: exerciseTable.name,
-            weight: recordTable.liftedWeight,
+            weight: bestPerUser.maxWeight,
             rank: sql<number>`row_number() over (
-                partition by ${recordTable.exerciseId} 
-                order by ${recordTable.liftedWeight} desc
-            )`.as('rank')
+                partition by ${bestPerUser.exerciseId} 
+                order by ${bestPerUser.maxWeight} desc
+            )`.as('rank'),
         })
-        .from(recordTable)
-        .leftJoin(userTable, eq(recordTable.userId, userTable.id))
-        .leftJoin(exerciseTable, eq(recordTable.exerciseId, exerciseTable.id));
+        .from(bestPerUser)
+        .leftJoin(userTable, eq(bestPerUser.userId, userTable.id))
+        .leftJoin(exerciseTable, eq(bestPerUser.exerciseId, exerciseTable.id))
+        .orderBy(desc(bestPerUser.maxWeight));
+
 
     return {
         allRecords,

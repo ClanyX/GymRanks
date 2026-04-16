@@ -123,7 +123,6 @@
                 <TableHeadCell class="text-right px-8">Datum</TableHeadCell>
             </TableHead>
             <TableBody>
-            <!-- TODO: remove duplication -->
                 {#each filteredRecords as item (item)}
                     <TableBodyRow class="border-b border-gray-800 dark:hover:bg-gray-500/30 hover:bg-gray-300/30 transition-colors">
                         <TableBodyCell>
@@ -148,7 +147,7 @@
                         </TableBodyCell>
 
                         <TableBodyCell class="text-right text-xs text-gray-500 font-medium px-8">
-                            {new Date(item.recordInfo.addedAt).toLocaleDateString('cs-CZ')}
+                            {new Date(item.recordInfo.addedAt as string | number | Date).toLocaleDateString('cs-CZ')}
                         </TableBodyCell>
                     </TableBodyRow>
                 {:else}

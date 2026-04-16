@@ -1,6 +1,6 @@
 import { db } from '$lib/server/';
 import { recordTable, userTable, exerciseTable } from '$lib/server/database/schema';
-import { eq, desc } from 'drizzle-orm';
+import { eq, desc, sql } from 'drizzle-orm';
 
 export const load = async () => {
     const allRecords = await db
@@ -19,14 +19,18 @@ export const load = async () => {
                 exerciseName: exerciseTable.name,
             },
             recordInfo: {
-                liftedWeight: recordTable.liftedWeight,
-                addedAt: recordTable.addedAt,
+                liftedWeight: sql<number>`MAX(${recordTable.liftedWeight})`,
+                addedAt: sql`MAX(${recordTable.addedAt})`,
             }
         })
         .from(recordTable)
         .leftJoin(userTable, eq(recordTable.userId, userTable.id))
         .leftJoin(exerciseTable, eq(recordTable.exerciseId, exerciseTable.id))
-        .orderBy(desc(recordTable.addedAt));
+        .groupBy(
+            userTable.id,
+            exerciseTable.id,
+        )
+        .orderBy(desc(sql`MAX(${recordTable.addedAt})`));
 
     return {
         allRecords

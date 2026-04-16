@@ -34,7 +34,6 @@
       <AwardOutline class="absolute -right-4 -bottom-4 w-24 h-24 dark:text-white/10 text-black/10 rotate-12" />
     </Card>
 
-    <!-- TODO: add badge to show % beter than -->
     <Card class="dark:bg-gray-800 bg-gray-200 border-gray-200 shadow-xl relative overflow-hidden p-2">
       <h3 class="text-gray-500 dark:text-gray-400 text-xs font-bold uppercase tracking-widest mb-2">Celkem zvednuto</h3>
       <p class="text-3xl font-black text-gray-900 dark:text-white">{totalLifted} <span class="text-sm">kg</span></p>

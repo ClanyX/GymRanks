@@ -22,7 +22,6 @@ export const actions: Actions = {
             return fail(400, { message: 'Neplatné prihlášovací udaje!' });
         }
 
-        //TODO: implement page redirection after successful login
         try{
             await db.update(userTable)
                 .set({ lastSignInAt: new Date() })

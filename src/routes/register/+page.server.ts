@@ -16,6 +16,11 @@ export const actions: Actions = {
         const dateOfBirth = formData.get('dateOfBirth') as string;
 		const weight = parseFloat(formData.get('weight') as string);
 		const gender = formData.get('gender') as 'male' | 'female' | 'other';
+		const terms = formData.get('terms') as string;
+
+		if (terms !== 'on') {
+			return fail(400, { message: 'Musíte souhlasit s podmínkami.' });
+		}
 
 		const cleanFirstName = firstName.charAt(0).toUpperCase() + firstName.slice(1).toLowerCase();
 		const cleanLastName = lastName.charAt(0).toUpperCase() + lastName.slice(1).toLowerCase();

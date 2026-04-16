@@ -42,9 +42,9 @@
 			<NavBrand href="/">
 				<img src="/logo.svg" class="me-3 h-9 sm:h-12" alt="gym-logo" />
 				<span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">GymRank</span>
+				<span class="ml-2 mt-3 text-xs font-semibold whitespace-nowrap text-gray-500">ALPHA</span>
 			</NavBrand>
   			<div class="flex md:order-2 gap-1">
-				<!-- TODO: after user login show account image, no logout button -->
 				{#if !session}
 	    			<GradientButton href="/login" pill shadow color="purpleToBlue" size="sm">PŘIHLÁSIT</GradientButton >
 				{:else}
@@ -111,6 +111,7 @@
     		  <FooterLink href="/about">O projektu</FooterLink>
     		  <FooterLink href="/contact">Kontakt & Podpora</FooterLink>
     		  <FooterLink href="/credits">Credits</FooterLink>
+			  <FooterLink href="/terms">Podmínky použití</FooterLink>
     		</FooterLinkGroup>
 
     		<div class="flex space-x-6">

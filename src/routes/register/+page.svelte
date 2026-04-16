@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { GradientButton, Label, Input, Card, Select } from 'flowbite-svelte';
+	import { GradientButton, Label, Input, Card, Select, Checkbox, A } from 'flowbite-svelte';
 	import { enhance } from '$app/forms';
 	import { resolve } from '$app/paths';
 
@@ -10,6 +10,8 @@
 		{ value: 'female', name: 'Žena' },
 		{ value: 'other', name: 'Jiné' }
 	];
+
+	let agreed = $state(false);
 </script>
 
 <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto mt-16 mb-16 lg:py-0">
@@ -60,11 +62,18 @@
                 </div>
 			</div>
 
+			<div class="flex items-center gap-2 py-2 ml-2">
+        		<Checkbox id="terms" name="terms" required bind:checked={agreed} class="accent-primary-600" />
+				<Label for="terms" class="text-xs text-gray-400 font-medium">
+            		Souhlasím se <A href="/terms" target="_blank" class="text-primary-500 hover:underline weight-bold">smluvními podmínkami</A> a pravidly Fair-Play
+        		</Label>
+    		</div>
+
 			{#if form?.message}
 				<p class="text-sm font-medium text-red-500">{form.message}</p>
 			{/if}
 
-            <GradientButton pill outline color="pinkToOrange" type="submit" class="w-full bg-primary-600 hover:bg-primary-700">Registrovat se</GradientButton>
+            <GradientButton disabled={!agreed} pill outline color="pinkToOrange" type="submit" class="w-full bg-primary-600 hover:bg-primary-700">Registrovat se</GradientButton>
 
             <p class="text-sm font-light text-gray-500 dark:text-gray-400">
 				Už máš účet? 

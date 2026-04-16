@@ -37,8 +37,7 @@
                         <TableHeadCell class="text-right">Váha</TableHeadCell>
                     </TableHead>
                     <TableBody>
-                    <!-- TODO: remove duplication and set max limit of records -->
-                        {#each records as record (record)}
+                        {#each records.slice(0, 10) as record (record)}
                             {@const isMe = record.userId === data.currentUserId}
                             
                             <TableBodyRow class={isMe ? 'bg-gray-300/20 dark:bg-gray-600/30 border-y border-primary-900/50 dark:border-primary-600' : 'border-b border-gray-800/50'}>

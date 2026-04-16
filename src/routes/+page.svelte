@@ -88,7 +88,6 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                     </svg>
                 </div>
-                <!-- TODO: edit text -->
                 <div>
                     <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4 font-sans italic uppercase tracking-tight">
                         VAŠE DATA, VAŠE VÝSLEDKY
