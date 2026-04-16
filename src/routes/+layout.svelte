@@ -41,7 +41,7 @@
 		<Navbar class="fixed inset-x-0 top-0 z-50 w-full border-b border-gray-300 bg-gray-200/95 px-2 py-2.5 backdrop-blur-sm sm:px-4 dark:border-gray-700 dark:bg-gray-800/95">
 			<NavBrand href="/">
 				<img src="/logo.svg" class="me-3 h-9 sm:h-12" alt="gym-logo" />
-				<span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Gym Ranking</span>
+				<span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">GymRank</span>
 			</NavBrand>
   			<div class="flex md:order-2 gap-1">
 				<!-- TODO: after user login show account image, no logout button -->
