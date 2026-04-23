@@ -69,6 +69,11 @@
         		</Label>
     		</div>
 
+			<!-- Honeypot -->
+			<div class="hidden" aria-hidden="true">
+    			<input type="text" name="honeypot" tabindex="-1" autocomplete="off" />
+			</div>
+
 			{#if form?.message}
 				<p class="text-sm font-medium text-red-500">{form.message}</p>
 			{/if}
