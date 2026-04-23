@@ -90,6 +90,10 @@ const authGuard: Handle = async ({ event, resolve }) => {
     throw redirect(303, '/app/dashboard');
   }
 
+  if(session && event.url.pathname === '/register') {
+    throw redirect(303, '/app/dashboard');
+  }
+
   return resolve(event);
 };
 

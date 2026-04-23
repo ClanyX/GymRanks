@@ -32,7 +32,8 @@
 </script>
 
 <svelte:head>
-	<link rel="apple-touch-icon" sizes="192x192" href="/favicon-192x192.png" />
+	<link rel="apple-touch-icon" sizes="192x192" href="/pwa-192x192.png" />
+	<link rel="icon" type="image/png" sizes="192x192" href="/pwa-192x192.png" />
 	<!-- TODO: Add favicon -->
 </svelte:head>
 

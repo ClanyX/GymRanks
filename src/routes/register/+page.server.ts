@@ -18,6 +18,12 @@ export const actions: Actions = {
 		const gender = formData.get('gender') as 'male' | 'female' | 'other';
 		const terms = formData.get('terms') as string;
 
+		const honeypot = formData.get('honeypot') as string;
+
+		if (honeypot) {
+			return fail(400, { message: 'Bot detected!' });
+		}
+
 		if (terms !== 'on') {
 			return fail(400, { message: 'Musíte souhlasit s podmínkami.' });
 		}
@@ -94,6 +100,6 @@ export const actions: Actions = {
 			return fail(500, { message: 'Profil se nepodařilo vytvořit.' });
 		}
 
-		throw redirect(303, '/login');
+		throw redirect(303, '/register/success');
 	}
 };
