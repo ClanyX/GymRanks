@@ -48,10 +48,10 @@
                 <TimelineItem title="Vývoj jádra" date="9. Dubna 2026">
                     <p class="text-gray-500 text-sm mt-2">Implementace databáze, systému rekordů a výpočtu skóre pro spravedlivé hodnocení napříč váhovými kategoriemi.</p>
                 </TimelineItem>
-                <!-- TODO: Add timeline item -->
-                <TimelineItem title="Alpha testování" date="Březen 2024">
+                <TimelineItem title="Alpha testování" date="16. Dubna 2026">
                     <p class="text-gray-500 text-sm mt-2">Otevření první verze pro uzavřenou skupinu testerů z lokálních fitness center.</p>
                 </TimelineItem>
+                <!-- TODO: Add timeline item -->
             </Timeline>
         </div>
     </section>
