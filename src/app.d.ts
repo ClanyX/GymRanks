@@ -1,3 +1,7 @@
+/// <reference types="vite-plugin-pwa/info" />
+/// <reference types="vite-plugin-pwa/svelte" />
+/// <reference types="vite-plugin-pwa/client" />
+
 import { SupabaseClient, Session, User } from '@supabase/supabase-js';
 import type { InferSelectModel } from 'drizzle-orm';
 

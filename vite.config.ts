@@ -8,6 +8,7 @@ export default defineConfig({
 		sveltekit(),
 		tailwindcss(),
 		SvelteKitPWA({
+			strategies: 'generateSW',
 			registerType: 'autoUpdate',
 			manifest: {
 				name: 'Gym Ranking',
@@ -29,7 +30,11 @@ export default defineConfig({
 						purpose: 'any maskable',
 					}
 				]
-			}
+			},
+			workbox: {
+				globPatterns: ['**/*.{js,css,html,ico,png,svg,jpg,webp}'],
+				navigateFallback: '/',
+			},
 		}),
 	],
 });
