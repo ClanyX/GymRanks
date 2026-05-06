@@ -1,12 +1,22 @@
 <script lang="ts">
     import { Button, Avatar } from 'flowbite-svelte';
-    import { MugHotOutline, GithubSolid, LinkedinSolid, YoutubeSolid } from 'flowbite-svelte-icons';
+    import { MugHotOutline, GithubSolid, LinkedinSolid, YoutubeSolid, UserOutline } from 'flowbite-svelte-icons';
+    import avatarSrc from '../../lib/assets/avatar.jpg';
+
+    let imageError = $state(false);
 </script>
 
 <div class="max-w-4xl mx-auto p-6 space-y-16">
     <section class="text-center space-y-8 pt-10">
         <div class="relative inline-block">
-            <Avatar size="xl" src="/avatar.jpg" border class="ring-4 ring-primary-600 shadow-2xl shadow-primary-900/40" />
+            {#if avatarSrc && !imageError}
+                <Avatar size="xl" src={avatarSrc} border class="ring-4 ring-primary-600 shadow-2xl shadow-primary-900/40"
+                    onerror={() => imageError = true} />
+            {:else}
+                <div class="flex items-center justify-center w-32 h-32 rounded-full bg-gray-100 border-4 border-gray-300 shadow-xl mx-auto dark:bg-gray-800">
+                    <UserOutline class="w-16 h-16 text-gray-400" />
+                </div>
+            {/if}
         </div>
 
         <div class="space-y-2">
@@ -67,6 +77,6 @@
 
     <footer class="text-center space-y-4 opacity-50 pb-10">
         <p class="text-xs text-gray-500 font-medium">Special thanks to SvelteKit, Drizzle ORM and Flowbite community.</p>
-        <p class="text-[9px] text-gray-700 tracking-[0.5em] uppercase">© 2024 GymRank Project</p>
+        <p class="text-[9px] text-gray-700 tracking-[0.5em] uppercase">© 2026 GymRank Project</p>
     </footer>
 </div>

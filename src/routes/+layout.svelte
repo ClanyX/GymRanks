@@ -9,6 +9,7 @@
 	import { enhance } from '$app/forms';
 	import { Footer, FooterCopyright, FooterLinkGroup, FooterLink, FooterIcon } from 'flowbite-svelte';
   	import { GithubSolid, EnvelopeSolid } from 'flowbite-svelte-icons';
+	import ReloadPrompt from '$lib/components/ReloadPrompt.svelte';
 
 	/* PWA */
 	import { pwaInfo } from 'virtual:pwa-info';
@@ -44,6 +45,8 @@
 		/>
 	{/if}
 </svelte:head>
+
+<ReloadPrompt />
 
 <div class="flex flex-col min-h-screen bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-200">
 	<div class="relative">
