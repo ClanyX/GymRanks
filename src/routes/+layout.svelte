@@ -9,6 +9,11 @@
 	import { enhance } from '$app/forms';
 	import { Footer, FooterCopyright, FooterLinkGroup, FooterLink, FooterIcon } from 'flowbite-svelte';
   	import { GithubSolid, EnvelopeSolid } from 'flowbite-svelte-icons';
+	import ReloadPrompt from '$lib/components/ReloadPrompt.svelte';
+
+	/* PWA */
+	import { pwaInfo } from 'virtual:pwa-info';
+	let webManifest = $derived(pwaInfo?.webManifest);
 
 	let activeUrl = $derived(page.url.pathname);
 	let activeClass = "font-bold text-gray-700 bg-gray-300 dark:text-white dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-700 md:hover:bg-transparent md:dark:hover:bg-transparent md:text-gray-700 md:dark:text-white ";
@@ -32,10 +37,16 @@
 </script>
 
 <svelte:head>
-	<link rel="apple-touch-icon" sizes="192x192" href="/pwa-192x192.png" />
-	<link rel="icon" type="image/png" sizes="192x192" href="/pwa-192x192.png" />
-	<!-- TODO: Add favicon -->
+	{#if webManifest}
+		<link
+			rel="manifest"
+			href={webManifest.href}
+			crossorigin={webManifest.useCredentials ? 'use-credentials' : undefined}
+		/>
+	{/if}
 </svelte:head>
+
+<ReloadPrompt />
 
 <div class="flex flex-col min-h-screen bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-200">
 	<div class="relative">
